@@ -1,5 +1,5 @@
 resource "aws_instance" "nginx" {
-  ami           = var.machine_ami
+  ami           = var.instance_ami
   instance_type = var.instance_type
   subnet_id     = aws_subnet.private_subnet.id
 
@@ -10,7 +10,7 @@ resource "aws_instance" "nginx" {
               sudo apt update -y
               sudo apt install -y docker
               sudo service docker start
-              sudo docker run -d -p 80:80 almogmaman762/custom-nginx
+              sudo docker run -d -p ${var.ports} ${var.image}
               EOF
 
   tags = {

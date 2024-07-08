@@ -1,80 +1,67 @@
-#Security group for the vpc - to the public subnet.
+#Security group for the vpc.
 resource "aws_security_group" "allow_web" {
   name        = "allow_web_traffic"
   description = "Allow web inbound traffic"
   vpc_id      = aws_vpc.main-vpc.id
 
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
+    from_port   = var.valid_port
+    to_port     = var.valid_port
+    protocol    = var.valid_layer4_protocol
     cidr_blocks = [var.all_ip]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1" #All protocols
+    from_port   = var.valid_port
+    to_port     = var.valid_port
+    protocol    = var.valid_layer4_protocol
     cidr_blocks = [var.all_ip]
   }
 }
-
-#ACL for subnets.
 
 #SG for the instange
-resource "aws_security_group" "private_sg" {
-  name        = "private-instance-sg"
-  description = "Security group for instance in private subnet"
+resource "aws_security_group" "instance_sg" {
+  name        = "instance-sg"
+  description = "Security group for the instance in private subnet"
   vpc_id      = aws_vpc.main-vpc.id
 
-  # Ingress rule to allow traffic from the public subnet's security group (assuming the load balancer is in the public subnet)
   ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    security_groups = [aws_security_group.lb_sg.id]
+    from_port   = var.valid_port
+    to_port     = var.valid_port
+    protocol    = var.valid_layer4_protocol
+    cidr_blocks = [aws_instance.nat_instance.ip] #Can only contanct with the nat instance. for security reasons.
   }
 
-  # Default egress rule: allow all outbound traffic
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port   = var.valid_port
+    to_port     = var.valid_port
+    protocol    = var.valid_layer4_protocol
+    cidr_blocks = [aws_instance.nat_instance.ip] #Can only contanct with the nat instance. for security reasons.
   }
 
   tags = {
-    Name = "PrivateInstanceSG"
+    Name = "private-instance-sg"
   }
 }
 
-resource "aws_security_group" "alb_sg" {
-  name        = "alb-security-group"
-  description = "Security group for ALB that allows web traffic"
-  vpc_id      = aws_vpc.main.id
 
-  ingress {
-    from_port   = 80
-    to_port     = 80
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow all incoming traffic on HTTP port
-  }
+# Security Group for NAT Instance
+resource "aws_security_group" "nat_sg" {
+  vpc_id = aws_vpc.main-vpc.id
 
-  ingress {
-    from_port   = 443
-    to_port     = 443
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow all incoming traffic on HTTPS port
-  }
-
+  # Allow all outgoing traffic for certain port and protocol
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]  # Allow all outbound traffic
+    from_port   = var.valid_port
+    to_port     = var.valid_port
+    protocol    = var.valid_layer4_protocol
+    cidr_blocks = [var.all_ip]
   }
 
-  tags = {
-    Name = "alb_sg"
+  # Allow all incoming traffic for certain port and protocol
+  ingress {
+    from_port   = var.valid_port
+    to_port     = var.valid_port
+    protocol    = var.valid_layer4_protocol
+    cidr_blocks = [var.all_ip]
   }
 }
