@@ -1,0 +1,8 @@
+*.txt
+.terraform/*
+*.tfstate
+*.info
+*.hcl
+*.backup
+custom-nginx/
+.vscode
