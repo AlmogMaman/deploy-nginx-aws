@@ -5,7 +5,7 @@ This project demonstrates how to deploy a custom NGINX instance on AWS using Ter
 ## Overview
 
 Deploy an NGINX instance inside private subnet. 
-that will be publicly accessible
+Nginx will be securely accessible via ALB and NAT gateway.
 and display the text "yo this is nginx" upon access.
 
 ## Prerequisites
