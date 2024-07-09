@@ -1,4 +1,4 @@
-name: deploy
+name: deploy-nginx
 
 on:
   push:
@@ -25,11 +25,21 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Validate #If the code is not valid. we wont continue to applying. time saver.
+      - name: Terraform Validate #If the code is not valid. we won't continue to applying. time saver.
         run: terraform validate
 
       - name: Terraform Apply
         run: terraform apply --auto-approve
+        env:
+          TF_VAR_AWS_USER_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_USER_ACCESS_KEY }}
+          TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_ACCESS_KEY }}
+
+      - name: Waiting 5 minutes #Time of nginx up and running.
+        run: sleep 5m
+      
+      #Destroying the infrastructure because I do not want the deployment will be stay after the workflow - cost efficient + fix the backend problem.
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve
         env:
           TF_VAR_AWS_USER_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_USER_ACCESS_KEY }}
           TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_ACCESS_KEY }}
