@@ -1,30 +1,32 @@
-resource "aws_iam_role" "ec2_role" {
-  name = "ec2_role"
+# # Define an IAM policy that allows describing EC2 AMIs
+# resource "aws_iam_policy" "ec2_full_permission" {
+#   name        = "full-ec2-permissions"
+#   description = "Policy grants full ec2 permission"
 
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
+#   # Policy document
+#   policy = <<EOT
+#     {
+#       "Version": "2012-10-17",
+#       "Statement": [
+#           {
+#               "Effect": "Allow",
+#               "Action": [
+#                   "ec2:*"
+#               ],
+#               "Resource": "*"
+#           }
+#       ]
+#     }
+#     EOT
+# }
 
-  tags = {
-    Name = "EC2Role"
-  }
-}
 
-resource "aws_iam_role_policy_attachment" "ssm_policy_attachment" {
-  role       = aws_iam_role.ec2_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-}
+# resource "aws_iam_user" "aws_user" {
+#   name = var.aws_user_name
+# }
 
-resource "aws_iam_instance_profile" "ec2_profile" {
-  name = "ec2_profile"
-  role = aws_iam_role.ec2_role.name
-}
+
+# resource "aws_iam_user_policy_attachment" "attach_policy" {
+#   user       = aws_iam_user.aws_user.name
+#   policy_arn = aws_iam_policy.ec2_full_permission.arn
+# }
