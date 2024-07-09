@@ -74,8 +74,3 @@ variable "AWS_SECRET_ACCESS_KEY" {
   type = string
   description = "AWS_SECRET_ACCESS_KEY uses environment variable named TF_VAR_AWS_SECRET_ACCESS_KEY"
 }
-
-variable "AWS_USER_NAME" {
-  type = string
-  description = "AWS_USER_NAME uses environment variable named TF_VAR_AWS_USER_NAME"
-}
