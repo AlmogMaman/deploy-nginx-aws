@@ -22,4 +22,3 @@ resource "aws_instance" "nginx_instance" {
 output "alb_dns" {
     value = aws_lb.alb.dns_name
 }
-
