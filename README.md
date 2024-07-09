@@ -81,10 +81,7 @@ Deploy an NGINX instance within a private subnet, ensuring secure access through
 1. **Deployment Workflow**
    - Triggered on changes to the main branch, it builds the infrastructure and deploys the application.
    - Can be manually triggered.
-2. **Destruction Workflow**
-   - Triggered on changes to the dev branch, it destroys the infrastructure.
-   - Can be manually triggered.
-3. **Workflow Authentication**
+2. **Workflow Authentication**
    - Uses GitHub repository secrets for authentication.
 
 
