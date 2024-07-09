@@ -4,9 +4,7 @@ This project demonstrates how to deploy a custom NGINX instance on AWS using Ter
 
 ## Overview
 
-Deploy an NGINX instance inside private subnet. 
-Nginx will be securely accessible via ALB and NAT gateway.
-and display the text "yo this is nginx" upon access.
+Deploy an NGINX instance within a private subnet, ensuring secure access through an Application Load Balancer (ALB) and a NAT gateway. The NGINX instance will display the message "yo this is nginx" upon access.
 
 ## Prerequisites
 
@@ -31,12 +29,14 @@ and display the text "yo this is nginx" upon access.
 4. **EC2 Instance (custom NGINX instance deployed in the private subnet)**
 
 5. **Security Groups**
-   - Configured security groups for the VPC, public subnets, private subnet, ALB, and the NGINX instance.
+   - Configured security groups for the VPC, ALB, and the NGINX instance.
 
 6. **NAT Gateway with EIP**
 
 7. **Application Load Balancer (ALB)**
    - ensuring high availability across the two public subnets.
+
+![DIAGRAM](Diagrams/Cloud_Architecture.png)
 
 ### Infrastructure Deployment with Terraform
 1. **Cloning the repo**
