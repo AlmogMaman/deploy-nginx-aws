@@ -1,5 +1,6 @@
 name: deploy-nginx
 
+
 on:
   push:
     branches:
@@ -24,6 +25,7 @@ jobs:
 
       - name: Terraform Init
         run: terraform init
+
 
       - name: Terraform Validate #If the code is not valid. we won't continue to applying. time saver.
         run: terraform validate
