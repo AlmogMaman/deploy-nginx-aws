@@ -1,6 +1,6 @@
 #Pay attention that the acceess and secret keys are as env variables for security reasons.
 #Another option is to configure the ASW CLI seperatly. But I preffer this solution
-#Becasue it can be fit to the gitHub action deployment in the future. without downloading the AWS CLI (faster deploymet)
+#Becasue it make the gitHub action deployment a litle bit faster. no need to download the AWS CLI (faster deployment).
 provider "aws" {
   region  = var.region
   access_key = var.AWS_USER_ACCESS_KEY
