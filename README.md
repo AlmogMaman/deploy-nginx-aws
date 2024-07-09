@@ -23,43 +23,58 @@ and display the text "yo this is nginx" upon access.
 ### AWS Infrastructure main Resources
 
 1. **Virtual Private Cloud (VPC)**
+
 2. **2 Public subnets (For ALB HA)**
+
 3. **Private subnet**
+
 4. **EC2 Instance (custom NGINX instance deployed in the private subnet)**
+
 5. **Security Groups**
    - Configured security groups for the VPC, public subnets, private subnet, ALB, and the NGINX instance.
+
 6. **NAT Gateway with EIP**
+
 7. **Application Load Balancer (ALB)**
    - ensuring high availability across the two public subnets.
 
 ### Infrastructure Deployment with Terraform
-1. **Initialize Terraform**
+1. **Cloning the repo**
+2. **Initialize Terraform**
    - Run `terraform init` to initialize the Terraform working directory.
-2. **Plan the Deployment** (optional)
+3. **Plan the Deployment** (optional)
    - Run `terraform plan` to review the deployment plan.
-3. **Apply the Deployment**
+4. **Apply the Deployment**
    - Run `terraform apply` to deploy the infrastructure.
-4. **Access NGINX**
+5. **Access NGINX**
    - Access the NGINX instance trough the browser via the ALB URL, which is output after applying the terraform apply command.
-5. **Destroy the Infrastructure**
+6. **Destroy the Infrastructure**
     - Run `terraform destroy` to tear down the infrastructure.
 
 ## Docker Containerization - Explanation
 1. **Dockerfile Creation**
-   - Created a Dockerfile for the custom NGINX instance.
-2. **Build Docker Image**
-   - Run `docker build -t <your-dockerhub-username>/custom-nginx .` to build the image.
+   - I created a Dockerfile for the custom NGINX instance.
+2. **I Built Docker Image**
+   - I ran `docker build -t almogmaman762/custom-nginx .` to build the image.
 3. **Local Testing**
-   - Test the Docker image locally by running it.
+   - I tested the Docker image locally by running it `docker run -p 80:80 almogmaman762/custom-nginx`.
 4. **Docker Hub Login**
-   - Login to Docker Hub using `docker login`.
-5. **Push Docker Image**
-   - Push the custom NGINX image to your Docker Hub account.
+   - Logged to Docker Hub using `docker login` with my docker Hub credentials.
+5. **Pushed Docker Image**
+   - I pushed the custom NGINX image to my Docker Hub account.
+
+## Local Access
+
+![LOCAL_ACCESS](Images/custom-nginx-local-running.PNG)
+
 
 ## Public Access
 
 - The NGINX instance will be accessible via the browser and will return the text "yo this is nginx."
 - The instance is deployed in a private subnet and is accessed through the ALB that resists in public subnets (High Availability).
+
+![PUBLIC_ACCESS](Images/access-via-browser-aws.PNG)
+
 
 ## Bonus: GitHub Workflows for CD
 
@@ -72,6 +87,10 @@ and display the text "yo this is nginx" upon access.
 3. **Workflow Authentication**
    - Uses GitHub repository secrets for authentication.
 
+
+![DEPLOY_WORKFLOW](Images/deploy-workflow.PNG)
+
+
 ## Authentication
 
 - Preferred method: Environment variables to streamline the GitHub Actions deployment process.
@@ -79,7 +98,6 @@ and display the text "yo this is nginx" upon access.
 
 
 ## Terraform Usage
-
 1. **Initialization**
    - `terraform init` to download relevant providers/modules.
 2. **Validation**
