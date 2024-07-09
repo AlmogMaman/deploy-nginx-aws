@@ -6,9 +6,7 @@ on:
       - main
     paths:
       - '**.tf'
-    # Check for specific commit message
-    commit-message: '*deploy*'
-  workflow_dispatch:  # Allows manual trigger
+  workflow_dispatch:
 
 jobs:
   terraform:
@@ -27,7 +25,7 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
-      - name: Terraform Validate
+      - name: Terraform Validate #If the code is not valid. we wont continue to applying. time saver.
         run: terraform validate
 
       - name: Terraform Apply

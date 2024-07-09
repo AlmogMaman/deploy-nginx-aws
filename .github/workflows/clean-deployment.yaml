@@ -1,13 +1,6 @@
 name: clean-deployment
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - '**.tf'
-    # Check for specific commit message
-    commit-message: '*clean-deployment*'
   workflow_dispatch:  # Allows manual trigger
 
 jobs:
@@ -27,6 +20,9 @@ jobs:
       - name: Terraform Init
         run: terraform init
 
+      - name: Terraform Plan #This for restoring the tfstate files.
+        run: terraform plan
+      
       - name: Terraform Destroy
         run: terraform destroy --auto-approve
         env:
