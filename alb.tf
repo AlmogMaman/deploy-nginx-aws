@@ -1,4 +1,3 @@
-# Define the ALB
 resource "aws_lb" "alb" {
   name               = "alb"
   internal           = false
@@ -13,7 +12,7 @@ resource "aws_lb" "alb" {
   }
 }
 
-# Define the target group for nginx instances
+
 resource "aws_lb_target_group" "nginx_target_group" {
   name     = "nginx-target-group"
   port     = var.valid_port
