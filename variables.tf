@@ -18,14 +18,10 @@ variable "nginx_instance_type" {
   default = "t2.micro"
 }
 
-#Application
-variable "nginx_image" {
-    type = string
-    default = "almogmaman762/custom-nginx"
-}
-variable "nginx_ports" {
+#I tried seperated vars. but it fails for some reason.
+variable "nginx_ports_and_image" {
   type = string
-  default = "80:80"
+  default = "80:80 almogmaman762/custom-nginx"
 }
 
 #Networking
