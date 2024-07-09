@@ -53,3 +53,4 @@ resource "aws_lb_target_group_attachment" "nginx_tg_attachment" {
   target_id        = aws_instance.nginx_instance.id
   port             = var.valid_port
 }
+
