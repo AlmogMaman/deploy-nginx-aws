@@ -24,7 +24,7 @@ and display the text "yo this is nginx" upon access.
 
 1. **Virtual Private Cloud (VPC)**
 
-2. **2 Public subnets (For ALB HA)**
+2. **2 Public subnets (High Availability)**
 
 3. **Private subnet**
 
@@ -71,7 +71,7 @@ and display the text "yo this is nginx" upon access.
 ## Public Access
 
 - The NGINX instance will be accessible via the browser and will return the text "yo this is nginx."
-- The instance is deployed in a private subnet and is accessed through the ALB that resists in public subnets (High Availability).
+- The instance is deployed in a private subnet and is accessed through the ALB that load balance from 2 public subnets (High Availability).
 
 ![PUBLIC_ACCESS](Images/access-via-browser-aws.PNG)
 
