@@ -76,7 +76,7 @@ Deploy an NGINX instance within a private subnet, ensuring secure access through
 ![PUBLIC_ACCESS](Images/access-via-browser-aws.PNG)
 
 
-## Bonus: GitHub Workflows for CD
+## GitHub Workflows for CD
 
 1. **Deployment Workflow**
    - Triggered on changes to the main branch, it builds the infrastructure and deploys the application.
