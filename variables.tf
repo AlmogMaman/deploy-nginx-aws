@@ -21,7 +21,7 @@ variable "nginx_instance_type" {
 #I tried seperated vars. but it fails for some reason.
 variable "nginx_ports_and_image" {
   type = string
-  default = "80:80 almogmaman762/custom-nginx"
+  default = "80:80 almogmaman762/simple-flask"
 }
 
 #Networking
