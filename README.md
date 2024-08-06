@@ -1,6 +1,6 @@
 # Flask App Deployment on AWS
 
-This project demonstrates how to deploy a custom flask app on AWS using Terraform for infrastructure management, Docker for containerization, and GitHub Actions for deploy the infrastructure.
+This project demonstrates how to deploy a flask app on AWS using Terraform for infrastructure management, Docker for containerization, and GitHub Actions for deploy the infrastructure.
 
 ## Overview
 
@@ -9,7 +9,6 @@ Deploy an flask app within a private subnet, ensuring secure access through an A
 ## Prerequisites
 
 - **AWS Account**: A free tier account is sufficient.
-- **AWS IAM User**: Create a user with EC2 and Elastic Load Balancer full permissions.
 - **Terraform**: Must be installed. [Installation Guide](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 - **Docker**: Should be installed on your local machine for image testing. (optional)
 - **Environment Variables**: Set the following:
@@ -73,16 +72,20 @@ Deploy an flask app within a private subnet, ensuring secure access through an A
 - The flask app will be accessible via the browser.
 - The instance is deployed in a private subnet and is accessed through the ALB that load balance from 2 public subnets (High Availability).
 
-![PUBLIC_ACCESS](public-access.PNG)
+![PUBLIC_ACCESS](Images/public-access.PNG)
 
 
-## GitHub Workflows for CD
+## GitHub Workflows
 
 1. **Deployment Workflow**
-   - Triggered on changes to the main branch, it builds the infrastructure and deploys the application.
+   - Triggered on changes to the main branch with specific commit. 
+   - Builds the infrastructure and deploys the application.
    - Can be manually triggered.
-   - Destroy the infrastructure when done
-2. **Workflow Authentication**
+
+2. **Destraction Workflow**
+   - destroy the infrastructure when commiting a specific commit message to main branch.
+
+3. **Workflow Authentication**
    - Uses GitHub repository secrets for authentication.
 
 
@@ -108,3 +111,6 @@ Deploy an flask app within a private subnet, ensuring secure access through an A
 5. **Destruction**
    - `terraform destroy` to tear down the infrastructure.
    - Optional: Use `--auto-approve` for non-interactive execution.
+
+**Note**
+ - my project uses remote terraform backend - Amazon S3.
