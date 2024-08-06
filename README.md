@@ -1,10 +1,10 @@
 # Flask App Deployment on AWS
 
-This project demonstrates how to deploy a custom flask app instance on AWS using Terraform for infrastructure management, Docker for containerization, and GitHub Actions for CD.
+This project demonstrates how to deploy a custom flask app on AWS using Terraform for infrastructure management, Docker for containerization, and GitHub Actions for deploy the infrastructure.
 
 ## Overview
 
-Deploy an flask app instance within a private subnet, ensuring secure access through an Application Load Balancer (ALB) and a NAT gateway. The flask app instance will display simple UI upon access.
+Deploy an flask app within a private subnet, ensuring secure access through an Application Load Balancer (ALB) and a NAT gateway. The flask app will display simple UI upon access.
 
 ## Prerequisites
 
@@ -26,7 +26,7 @@ Deploy an flask app instance within a private subnet, ensuring secure access thr
 
 3. **Private subnet**
 
-4. **EC2 Instance (custom flask app instance deployed in the private subnet)**
+4. **EC2 Instance (custom flask app deployed in the private subnet)**
 
 5. **Security Groups**
    - Configured security groups for the VPC, ALB, and the flask app instance.
@@ -39,7 +39,7 @@ Deploy an flask app instance within a private subnet, ensuring secure access thr
 ![DIAGRAM](Diagrams/Cloud_Architecture.png)
 
 ### Infrastructure Deployment with Terraform
-1. **Cloning the repo**
+1. **Cloning the repo and cd to Infrastructure directory**
 2. **Initialize Terraform**
    - Run `terraform init` to initialize the Terraform working directory.
 3. **Plan the Deployment** (optional)
@@ -47,33 +47,33 @@ Deploy an flask app instance within a private subnet, ensuring secure access thr
 4. **Apply the Deployment**
    - Run `terraform apply` to deploy the infrastructure.
 5. **Access flask app**
-   - Access the flask app instance trough the browser via the ALB URL, which is output after applying the terraform apply command.
+   - Access the flask app trough the browser via the ALB URL, which is output after applying the terraform apply command.
 6. **Destroy the Infrastructure**
     - Run `terraform destroy` to tear down the infrastructure.
 
 ## Docker Containerization - Explanation
 1. **Dockerfile Creation**
-   - I created a Dockerfile for the custom flask app instance.
+   - I created a Dockerfile for the flask application.
 2. **I Built Docker Image**
-   - I ran `docker build -t almogmaman762/custom-flask app .` to build the image.
+   - I ran `docker build -t almogmaman762/simple-flask .` in the application directory to build the image.
 3. **Local Testing**
-   - I tested the Docker image locally by running it `docker run -p 80:80 almogmaman762/custom-flask app`.
+   - I tested the Docker image locally by running it `docker run -p 80:80 almogmaman762/simple-flask`.
 4. **Docker Hub Login**
    - Logged to Docker Hub using `docker login` with my docker Hub credentials.
 5. **Pushed Docker Image**
-   - I pushed the custom flask app image to my Docker Hub account.
+   - I pushed the flask app image to my Docker Hub account.
 
 ## Local Access
 
-![LOCAL_ACCESS](Images/custom-flask app-local-running.PNG)
+![LOCAL_ACCESS](Images/local-access.PNG)
 
 
 ## Public Access
 
-- The flask app instance will be accessible via the browser and will return the text "yo this is flask app."
+- The flask app will be accessible via the browser.
 - The instance is deployed in a private subnet and is accessed through the ALB that load balance from 2 public subnets (High Availability).
 
-![PUBLIC_ACCESS](Images/access-via-browser-aws.PNG)
+![PUBLIC_ACCESS](public-access.PNG)
 
 
 ## GitHub Workflows for CD
