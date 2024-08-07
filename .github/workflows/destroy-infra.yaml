@@ -9,12 +9,17 @@ on:
 env:
     TF_VAR_AWS_USER_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_USER_ACCESS_KEY }}
     TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_ACCESS_KEY }}
+    AWS_ACCESS_KEY_ID: ${{secret.AWS_ACCESS_KEY_ID}}
+    AWS_SECRET_ACCESS_KEY: ${{secret.AWS_SECRET_ACCESS_KEY}}
 
 
 
 jobs:
   destroy-infra:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Infrastructure
     if: contains(github.event.head_commit.message, 'destroy-infra')
     steps:
 
