@@ -9,22 +9,21 @@ on:
   workflow_dispatch:
 
 jobs:
-  deploy-infra:
+  destroy-infra:
     runs-on: ubuntu-latest
     if: contains(github.event.head_commit.message, 'destroy-infra')
     steps:
 
       - name: Check out code
         uses: actions/checkout@v3
+        with:
+          path: "Infrastructure"
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: '1.9.1'
       
-      - name: move to Infra dir
-        run: cd Infrastructure
-
       - name: Terraform Init
         run: terraform init
 
