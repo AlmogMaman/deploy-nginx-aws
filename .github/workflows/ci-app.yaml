@@ -11,6 +11,9 @@ on:
 jobs:
   deploy-infra:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Application
     steps:
 
       - name: Check out code
