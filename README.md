@@ -96,6 +96,7 @@ Deploy an flask app within a private subnet, ensuring secure access through an A
 ![DEPLOY_WORKFLOW](Images/deploy-infra.PNG)
 
 
+
 ![DESTROY_WORKFLOW](Images/destroy-infra.PNG)
 
 
