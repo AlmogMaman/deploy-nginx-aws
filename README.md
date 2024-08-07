@@ -1,15 +1,14 @@
-# NGINX Deployment on AWS
+# Flask App Deployment on AWS
 
-This project demonstrates how to deploy a custom NGINX instance on AWS using Terraform for infrastructure management, Docker for containerization, and GitHub Actions for CD.
+This project demonstrates how to deploy a flask app on AWS using Terraform for infrastructure management, Docker for containerization, and GitHub Actions for deploy the infrastructure.
 
 ## Overview
 
-Deploy an NGINX instance within a private subnet, ensuring secure access through an Application Load Balancer (ALB) and a NAT gateway. The NGINX instance will display the message "yo this is nginx" upon access.
+Deploy an flask app within a private subnet, ensuring secure access through an Application Load Balancer (ALB) and a NAT gateway. The flask app will display simple UI upon access.
 
 ## Prerequisites
 
 - **AWS Account**: A free tier account is sufficient.
-- **AWS IAM User**: Create a user with EC2 and Elastic Load Balancer full permissions.
 - **Terraform**: Must be installed. [Installation Guide](https://learn.hashicorp.com/tutorials/terraform/install-cli)
 - **Docker**: Should be installed on your local machine for image testing. (optional)
 - **Environment Variables**: Set the following:
@@ -26,10 +25,10 @@ Deploy an NGINX instance within a private subnet, ensuring secure access through
 
 3. **Private subnet**
 
-4. **EC2 Instance (custom NGINX instance deployed in the private subnet)**
+4. **EC2 Instance (custom flask app deployed in the private subnet)**
 
 5. **Security Groups**
-   - Configured security groups for the VPC, ALB, and the NGINX instance.
+   - Configured security groups for the VPC, ALB, and the flask app instance.
 
 6. **NAT Gateway with EIP**
 
@@ -39,50 +38,55 @@ Deploy an NGINX instance within a private subnet, ensuring secure access through
 ![DIAGRAM](Diagrams/Cloud_Architecture.png)
 
 ### Infrastructure Deployment with Terraform
-1. **Cloning the repo**
+1. **Cloning the repo and cd to Infrastructure directory**
 2. **Initialize Terraform**
    - Run `terraform init` to initialize the Terraform working directory.
 3. **Plan the Deployment** (optional)
    - Run `terraform plan` to review the deployment plan.
 4. **Apply the Deployment**
    - Run `terraform apply` to deploy the infrastructure.
-5. **Access NGINX**
-   - Access the NGINX instance trough the browser via the ALB URL, which is output after applying the terraform apply command.
+5. **Access flask app**
+   - Access the flask app trough the browser via the ALB URL, which is output after applying the terraform apply command.
 6. **Destroy the Infrastructure**
     - Run `terraform destroy` to tear down the infrastructure.
 
 ## Docker Containerization - Explanation
 1. **Dockerfile Creation**
-   - I created a Dockerfile for the custom NGINX instance.
+   - I created a Dockerfile for the flask application.
 2. **I Built Docker Image**
-   - I ran `docker build -t almogmaman762/custom-nginx .` to build the image.
+   - I ran `docker build -t almogmaman762/simple-flask .` in the application directory to build the image.
 3. **Local Testing**
-   - I tested the Docker image locally by running it `docker run -p 80:80 almogmaman762/custom-nginx`.
+   - I tested the Docker image locally by running it `docker run -p 80:80 almogmaman762/simple-flask`.
 4. **Docker Hub Login**
    - Logged to Docker Hub using `docker login` with my docker Hub credentials.
 5. **Pushed Docker Image**
-   - I pushed the custom NGINX image to my Docker Hub account.
+   - I pushed the flask app image to my Docker Hub account.
 
 ## Local Access
 
-![LOCAL_ACCESS](Images/custom-nginx-local-running.PNG)
+![LOCAL_ACCESS](Images/local-access.PNG)
 
 
 ## Public Access
 
-- The NGINX instance will be accessible via the browser and will return the text "yo this is nginx."
+- The flask app will be accessible via the browser.
 - The instance is deployed in a private subnet and is accessed through the ALB that load balance from 2 public subnets (High Availability).
 
-![PUBLIC_ACCESS](Images/access-via-browser-aws.PNG)
+![PUBLIC_ACCESS](Images/public-access.PNG)
 
 
-## GitHub Workflows for CD
+## GitHub Workflows
 
 1. **Deployment Workflow**
-   - Triggered on changes to the main branch, it builds the infrastructure and deploys the application.
+   - Triggered on changes to the main branch with specific commit. 
+   - Builds the infrastructure and deploys the application.
    - Can be manually triggered.
-   - Destroy the infrastructure when done
-2. **Workflow Authentication**
+
+2. **Destraction Workflow**
+   - destroy the infrastructure when commiting a specific commit message to main branch.
+   - Can be manually triggered.
+
+3. **Workflow Authentication**
    - Uses GitHub repository secrets for authentication.
 
 
@@ -108,3 +112,6 @@ Deploy an NGINX instance within a private subnet, ensuring secure access through
 5. **Destruction**
    - `terraform destroy` to tear down the infrastructure.
    - Optional: Use `--auto-approve` for non-interactive execution.
+
+**Note**
+ - my project uses remote terraform backend - Amazon S3.

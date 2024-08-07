@@ -1,8 +1,7 @@
 *.txt
-.terraform/*
+Infrastructure/.terraform/*
 *.tfstate
 *.info
 *.hcl
 *.backup
-custom-nginx/
 .vscode

@@ -13,15 +13,15 @@ variable "availability_zone_b" {
 }
 
 #Compute
-variable "nginx_instance_type" {
+variable "app_instance_type" {
   type = string
   default = "t2.micro"
 }
 
 #I tried seperated vars. but it fails for some reason.
-variable "nginx_ports_and_image" {
+variable "app_ports_and_image" {
   type = string
-  default = "80:80 almogmaman762/custom-nginx"
+  default = "80:80 almogmaman762/simple-flask"
 }
 
 #Networking

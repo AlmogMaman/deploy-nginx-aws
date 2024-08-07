@@ -1,0 +1,38 @@
+name: Destroy Infrastructure
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**.tf'
+  workflow_dispatch:
+
+jobs:
+  deploy-infra:
+    runs-on: ubuntu-latest
+    if: contains(github.event.head_commit.message, 'destroy-infra')
+    steps:
+
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: '1.9.1'
+      
+      - name: move to Infra dir
+        run: cd Infrastructure
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Refresh
+        run: terraform refresh
+
+      - name: Terraform Destroy
+        run: terraform destroy --auto-approve
+        env:
+          TF_VAR_AWS_USER_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_USER_ACCESS_KEY }}
+          TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_ACCESS_KEY }}
