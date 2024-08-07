@@ -8,6 +8,12 @@ on:
       - 'Application/*'
   workflow_dispatch:
 
+env:
+    DOCKER_HUB_USERNAME : ${{secret.DOCKER_HUB_USERNAME}}
+    DOCKER_HUB_PASSWORD : ${{secret.DOCKER__HUB_PASSWORD}}
+    DOCKER_IMAGE : ${{secret.DOCKER_IMAGE}}
+
+
 jobs:
   deploy-infra:
     runs-on: ubuntu-latest
