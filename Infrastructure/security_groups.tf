@@ -24,7 +24,7 @@ resource "aws_security_group" "vpc_sg" {
 }
 
 #SG for the instange
-resource "aws_security_group" "nginx_instance_sg" {
+resource "aws_security_group" "app_instance_sg" {
   name        = "instance-sg"
   description = "Security group for the instance in private subnet"
   vpc_id      = aws_vpc.main-vpc.id

@@ -13,8 +13,8 @@ resource "aws_lb" "alb" {
 }
 
 
-resource "aws_lb_target_group" "nginx_target_group" {
-  name     = "nginx-target-group"
+resource "aws_lb_target_group" "app_target_group" {
+  name     = "app-target-group"
   port     = var.valid_port
   protocol = var.alb_layer7_protocol
   vpc_id   = aws_vpc.main-vpc.id
@@ -31,7 +31,7 @@ resource "aws_lb_target_group" "nginx_target_group" {
   }
 
   tags = {
-    Name = "nginx-target-group"
+    Name = "app-target-group"
   }
 }
 
@@ -43,14 +43,14 @@ resource "aws_lb_listener" "http_listener" {
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.nginx_target_group.arn
+    target_group_arn = aws_lb_target_group.app_target_group.arn
   }
 }
 
 # Attach EC2 instances to the target group
-resource "aws_lb_target_group_attachment" "nginx_tg_attachment" {
-  target_group_arn = aws_lb_target_group.nginx_target_group.arn
-  target_id        = aws_instance.nginx_instance.id
+resource "aws_lb_target_group_attachment" "app_tg_attachment" {
+  target_group_arn = aws_lb_target_group.app_target_group.arn
+  target_id        = aws_instance.app_instance.id
   port             = var.valid_port
 }
 
