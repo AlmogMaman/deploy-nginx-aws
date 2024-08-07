@@ -1,5 +1,6 @@
 *.txt
 Infrastructure/.terraform/*
+.terraform/*
 *.tfstate
 *.info
 *.hcl
