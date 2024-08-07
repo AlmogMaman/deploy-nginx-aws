@@ -7,8 +7,8 @@ on:
   workflow_dispatch:
 
 env:
-    TF_VAR_aws_user_access_key: ${{ secrets.TF_VAR_AWS_USER_ACCESS_KEY }}
-    TF_VAR_aws_secret_access_key: ${{ secrets.TF_VAR_AWS_SECRET_ACCESS_KEY }}
+    TF_VAR_AWS_USER_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_USER_ACCESS_KEY }}
+    TF_VAR_AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_VAR_AWS_SECRET_ACCESS_KEY }}
 
 jobs:
   destroy-infra:
@@ -29,9 +29,12 @@ jobs:
       
       - name: Terraform Init
         run: terraform init
+        working-directory: ./Infrastructure
 
       - name: Terraform Refresh
         run: terraform refresh
+        working-directory: ./Infrastructure
 
       - name: Terraform Destroy
         run: terraform destroy --auto-approve
+        working-directory: ./Infrastructure
