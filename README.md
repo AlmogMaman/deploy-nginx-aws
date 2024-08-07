@@ -82,15 +82,21 @@ Deploy an flask app within a private subnet, ensuring secure access through an A
    - Builds the infrastructure and deploys the application.
    - Can be manually triggered.
 
+
 2. **Destraction Workflow**
    - destroy the infrastructure when commiting a specific commit message to main branch.
    - Can be manually triggered.
+
+
 
 3. **Workflow Authentication**
    - Uses GitHub repository secrets for authentication.
 
 
-![DEPLOY_WORKFLOW](Images/deploy-workflow.PNG)
+![DEPLOY_WORKFLOW](Images/deploy-infra.PNG)
+
+
+![DESTROY_WORKFLOW](Images/destroy-infra.PNG)
 
 
 ## Authentication
