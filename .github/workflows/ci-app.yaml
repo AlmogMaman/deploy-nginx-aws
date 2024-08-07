@@ -35,8 +35,8 @@ jobs:
       - name: Login to DockerHub
         run: docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}
         env:
-          DOCKER_HUB_USERNAME : ${{secret.DOCKER_USERNAME}}
-          DOCKER_HUB_PASSWORD : ${{secret.DOCKER_PASSWORD}}
+          DOCKER_HUB_USERNAME : ${{secret.DOCKER_HUB_USERNAME}}
+          DOCKER_HUB_PASSWORD : ${{secret.DOCKER__HUB_PASSWORD}}
 
 
       - name: Publish
