@@ -13,9 +13,6 @@ env:
 jobs:
   destroy-infra:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./Infrastructure
     if: contains(github.event.head_commit.message, 'destroy-infra')
     steps:
 
@@ -29,12 +26,9 @@ jobs:
       
       - name: Terraform Init
         run: terraform init
-        working-directory: ./Infrastructure
 
       - name: Terraform Refresh
         run: terraform refresh
-        working-directory: ./Infrastructure
 
       - name: Terraform Destroy
         run: terraform destroy --auto-approve
-        working-directory: ./Infrastructure

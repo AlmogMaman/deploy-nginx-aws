@@ -15,9 +15,6 @@ env:
 jobs:
   deploy-infra:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./Infrastructure
     if: contains(github.event.head_commit.message, 'deploy-infra')
     steps:
 
